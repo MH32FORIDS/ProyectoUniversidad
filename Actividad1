@@ -1,0 +1,122 @@
+include<iostream>
+#include<string>
+
+class Date
+{
+private:
+	std::string Fecha, Fecha2 = Fecha;
+	int year, month, day;
+
+public:
+	Date(std::string);
+
+	void setFecha(std::string Fecha) {
+		this->Fecha = Fecha;
+	}
+
+	int getyear() {
+		if (year > 9999) {
+			year = 9999;
+		}
+		else if (year <= 0) {
+			year = 1;
+		}
+		std::cout << "year: " << year << " es un year ";
+		if (year % 4 == 0 and year % 100 != 0 or year % 400 == 0)
+			std::cout << "Bisiesto" << std::endl;
+		else
+			std::cout << "No es bisiesto" << std::endl;
+
+		return year;
+	}
+
+	int getmonth() {
+		if (month <= 0)
+		{
+			month = 1;
+		}
+		else if (month >= 13)
+		{
+			month = 12;
+		}
+
+		return month;
+	}
+
+
+	int getday() {
+
+		return day;
+	}
+	void Validarday() {
+
+		if (month >= 1 && month <= 12)
+			if (month <= 0)
+			{
+				month = 1;
+			}
+			else if (month >= 13)
+			{
+				month = 12;
+			}
+
+		switch (month)
+		{
+		case  1:
+		case  3:
+		case  5:
+		case  7:
+		case  8:
+		case 10:
+		case 12: std::cout << "31";
+			break;
+
+		case  4:
+		case  6:
+		case  9:
+		case 11: std::cout << "30";
+			break;
+
+		case  2:
+			if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+				std::cout << "29";
+			else
+				std::cout << "28";
+		}
+
+	}
+
+};
+
+Date::Date(std::string fecha) {
+
+	Fecha = fecha;
+
+	Fecha2 = Fecha.substr(0, 4);
+	year = stoi(Fecha2);
+
+	Fecha2 = Fecha.substr(5, 6);
+	month = stoi(Fecha2);
+
+	Fecha2 = Fecha.substr(8, 9);
+	day = stoi(Fecha2);
+
+}
+
+int main() {
+
+	std::string Fecha, date;
+
+	std::cout << "Fecha" << std::endl;
+	std::cout << "ingrese la fecha YYYY/MM/DD" << std::endl;
+	getline(std::cin, date);
+	Date Newdate(date);
+
+	std::cout << "year: " << Newdate.getyear() << std::endl;
+	std::cout << "month: " << Newdate.getmonth() << std::endl;
+	std::cout << "day: ";
+	Newdate.Validarday();
+	std::cout << std::endl;
+
+	return 0;
+}
